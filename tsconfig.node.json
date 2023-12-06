@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "composite": true,
+    "module": "es2022",
+    "moduleResolution": "node",
+    "resolveJsonModule": true
+  },
+  "include": ["vite.config.ts", "src/**/*.json"]
+}
