@@ -3,8 +3,8 @@ import { Provider } from 'react-redux';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import { AddPage } from './pages/AddPage/AddPage';
-import { MainPage } from './pages/MainPage/MainPage.js';
-import { store } from './store/index.js';
+import { MainPage } from './pages/MainPage/MainPage';
+import { store } from './store/index';
 
 export const App = () => {
     return (

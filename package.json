@@ -8,9 +8,16 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d dist",
     "lint": "eslint 'src/**/*.{js,jsx,ts,tsx,json}'",
     "lint:fix": "eslint --fix 'src/**/*.{js,jsx,ts,tsx,json}'",
-    "format": "prettier --write 'src/**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc"
+    "format": "prettier --write 'src/**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc",
+    "prepare": "husky install",
+    "postinstall": "husky install",
+    "prepack": "pinst --disable",
+    "postpack": "pinst --enable",
+    "precommit": "yarn lint:fix && yarn format"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
@@ -38,13 +45,13 @@
     "eslint-plugin-prettier": "^5.0.1",
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "gh-pages": "^6.1.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.2.0",
+    "pinst": "^3.0.0",
     "prettier": "^3.1.0",
     "typescript": "^4.9.3",
     "vite": "^4.1.0",
     "vite-plugin-checker": "^0.6.2"
-  },
-  "peerDependencies": {
-    "react": "^17.0.0 || ^18.0.0",
-    "react-dom": "^17.0.0 || ^18.0.0"
   }
 }
