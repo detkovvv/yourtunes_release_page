@@ -1,13 +1,20 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query';
+import { createApi } from '@reduxjs/toolkit/query/react';
+
+import { axiosBaseQuery, axiosInstance, url } from './../utils/axios/index';
 
 export const releaseAPI = createApi({
     reducerPath: 'releaseAPI',
-    baseQuery: fetchBaseQuery({ baseUrl: 'https://dev-api-v2.yourtunes.net/api/v2' }),
-    endpoints: (build) => ({
-        fetchAllReleases: build.query({
-            query: () => ({
-                url: '/release/list',
-            }),
+    baseQuery: axiosBaseQuery({ baseUrl: url }),
+    endpoints: (builder) => ({
+        getReleases: builder.query({
+            queryFn: async () => {
+                try {
+                    const response = await axiosInstance('/list');
+                    return { result: await response.data };
+                } catch (e) {
+                    return { error: e.message };
+                }
+            },
         }),
     }),
 });

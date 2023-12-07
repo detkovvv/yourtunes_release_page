@@ -1,25 +1,20 @@
 import { Button } from '@mui/material';
-import { type FC, useEffect } from 'react';
+import { type FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { Release } from '../../components/Release/Release';
-import { fetchReleases } from '../../store/reducers/ActionCreators';
-import { useAppDispatch, useAppSelector } from '../../utils/hooks';
+import { releaseAPI } from '../../servicees/ReleaseService';
+import { type IRelease } from '../../store/reducers/ReleasesSlice';
 
 export const MainPage: FC = () => {
     const navigate = useNavigate();
-    const dispatch = useAppDispatch();
-    const { releases, isLoading, error } = useAppSelector((state) => state.releasesReducer);
-
-    useEffect(() => {
-        dispatch(fetchReleases());
-    }, []);
+    const { data: releases } = releaseAPI.useGetReleasesQuery('');
 
     return (
         <div>
             <div>Your releases</div>
             {releases ? (
-                releases.map((release: any) => (
+                releases.map((release: IRelease) => (
                     <Release
                         date={release.public_date}
                         key={release.uid}
