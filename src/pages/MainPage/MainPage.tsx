@@ -3,18 +3,17 @@ import { type FC, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { Release } from '../../components/Release/Release';
-import { type IRelease } from '../../store/slice/releases';
-import { axiosInstance } from '../../utils/axios';
-import { useAppSelector } from '../../utils/hooks';
+import { fetchReleases } from '../../store/reducers/ActionCreators';
+import { useAppDispatch, useAppSelector } from '../../utils/hooks';
 
 export const MainPage: FC = () => {
     const navigate = useNavigate();
-    const releases: IRelease[] = [];
-    // const releases = useAppSelector((store) => store.releases.releases);
-    const getReleases = async (): Promise<void> => {
-        await axiosInstance.get('/release/list').then((response) => console.log(response.data));
-    };
-    useEffect(() => {}, []);
+    const dispatch = useAppDispatch();
+    const { releases, isLoading, error } = useAppSelector((state) => state.releasesReducer);
+
+    useEffect(() => {
+        dispatch(fetchReleases());
+    }, []);
 
     return (
         <div>

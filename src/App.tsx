@@ -1,10 +1,9 @@
-import './App.css';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import { AddPage } from './pages/AddPage/AddPage';
 import { MainPage } from './pages/MainPage/MainPage';
-import { store } from './store/index';
+import { store } from './store/store';
 
 export const App = () => {
     return (
