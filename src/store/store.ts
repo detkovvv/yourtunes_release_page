@@ -1,6 +1,6 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
-import releasesReducer from './reducers/ReleasesSlise';
+import releasesReducer from './reducers/ReleasesSlice';
 
 const rootReducer = combineReducers({
     releasesReducer,

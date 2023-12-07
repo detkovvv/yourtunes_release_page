@@ -34,8 +34,7 @@ const initialState: IReleasesState = {
 export const releasesSlice = createSlice({
     name: 'releases',
     initialState,
-    reducers: {},
-    extraReducers: {
+    reducers: {
         [fetchReleases.fulfilled.type]: (
             state: { isLoading: boolean; error: string; releases: IRelease[] },
             action: PayloadAction<IRelease[]>,

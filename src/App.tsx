@@ -8,7 +8,7 @@ import { store } from './store/store';
 export const App = () => {
     return (
         <BrowserRouter>
-            <Provider store={store}>
+            <Provider store={store()}>
                 <Routes>
                     <Route element={<MainPage />} path='/' />
                     <Route element={<AddPage />} path='add' />

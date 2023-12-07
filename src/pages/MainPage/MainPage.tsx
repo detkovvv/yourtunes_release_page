@@ -19,7 +19,7 @@ export const MainPage: FC = () => {
         <div>
             <div>Your releases</div>
             {releases ? (
-                releases.map((release) => (
+                releases.map((release: any) => (
                     <Release
                         date={release.public_date}
                         key={release.uid}

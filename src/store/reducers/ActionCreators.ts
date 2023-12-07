@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { type IRelease, releasesSlice } from './ReleasesSlise';
+import { type IRelease, releasesSlice } from './ReleasesSlice';
 import { axiosInstance } from '../../utils/axios';
 import { type AppDispatch } from '../store';
 
