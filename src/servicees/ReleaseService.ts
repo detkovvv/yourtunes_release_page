@@ -1,20 +1,13 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 
-import { axiosBaseQuery, axiosInstance, url } from './../utils/axios/index';
+import { axiosBaseQuery } from './axiosBaseQuery';
 
 export const releaseAPI = createApi({
     reducerPath: 'releaseAPI',
-    baseQuery: axiosBaseQuery({ baseUrl: url }),
+    baseQuery: axiosBaseQuery(),
     endpoints: (builder) => ({
         getReleases: builder.query({
-            queryFn: async () => {
-                try {
-                    const response = await axiosInstance('/list');
-                    return { result: await response.data };
-                } catch (e) {
-                    return { error: e.message };
-                }
-            },
+            query: () => ({ url: '/list', method: 'get' }),
         }),
     }),
 });

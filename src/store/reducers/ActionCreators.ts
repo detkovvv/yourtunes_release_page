@@ -1,8 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { type IRelease, releasesSlice } from './ReleasesSlice';
-import { axiosInstance } from '../../utils/axios';
-import { type AppDispatch } from '../store';
+import { type IRelease } from './ReleasesSlice';
+import { axiosInstance } from '../../servicees/axios';
 
 // export const fetchReleases = async (dispatch: AppDispatch) => {
 //     try {

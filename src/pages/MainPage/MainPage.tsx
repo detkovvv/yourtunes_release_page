@@ -8,7 +8,9 @@ import { type IRelease } from '../../store/reducers/ReleasesSlice';
 
 export const MainPage: FC = () => {
     const navigate = useNavigate();
-    const { data: releases } = releaseAPI.useGetReleasesQuery('');
+    const { data: currentData } = releaseAPI.useGetReleasesQuery('');
+    const releases = currentData.result;
+    console.log(releases);
 
     return (
         <div>
