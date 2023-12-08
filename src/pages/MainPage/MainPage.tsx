@@ -1,4 +1,4 @@
-import { Button } from '@mui/material';
+import { Button, Container } from '@mui/material';
 import { type FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -9,12 +9,11 @@ import { type IRelease } from '../../store/reducers/ReleasesSlice';
 export const MainPage: FC = () => {
     const navigate = useNavigate();
     const { data: currentData } = releaseAPI.useGetReleasesQuery('');
-    const releases = currentData.result;
-    console.log(releases);
+    const releases: IRelease[] = currentData.result;
 
     return (
-        <div>
-            <div>Your releases</div>
+        <Container maxWidth='lg'>
+            <h1>Your releases:</h1>
             {releases ? (
                 releases.map((release: IRelease) => (
                     <Release
@@ -27,9 +26,18 @@ export const MainPage: FC = () => {
             ) : (
                 <div>no added releases</div>
             )}
-            <Button onClick={() => navigate('add')} type='button'>
-                add release
+            <Button
+                onClick={() => navigate('/add')}
+                sx={{
+                    width: '200px',
+                    height: '40px',
+                    background: 'lightgrey',
+                    color: 'white',
+                    '&:hover': { background: 'grey' },
+                }}
+            >
+                add new release
             </Button>
-        </div>
+        </Container>
     );
 };
