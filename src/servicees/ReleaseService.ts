@@ -11,3 +11,5 @@ export const releaseAPI = createApi({
         }),
     }),
 });
+
+export const { useGetReleasesQuery, endpoints } = releaseAPI;
