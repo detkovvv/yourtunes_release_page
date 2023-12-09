@@ -1,4 +1,4 @@
-import { Button, Container } from '@mui/material';
+import { Button, Container, Stack } from '@mui/material';
 import { type FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -16,18 +16,6 @@ export const MainPage: FC = () => {
     return (
         <Container maxWidth='lg'>
             <h1>Your releases:</h1>
-            {releases ? (
-                releases.map((release: IRelease) => (
-                    <Release
-                        date={release.public_date}
-                        key={release.uid}
-                        link={release.ava_short_link}
-                        name={release.name}
-                    />
-                ))
-            ) : (
-                <div>no added releases</div>
-            )}
             <Button
                 onClick={() => navigate('/add')}
                 sx={{
@@ -40,6 +28,20 @@ export const MainPage: FC = () => {
             >
                 add new release
             </Button>
+            <Stack direction='row' flexWrap='wrap' spacing={{ xs: 2, sm: 8 }} useFlexGap>
+                {releases ? (
+                    releases.map((release: IRelease) => (
+                        <Release
+                            date={release.public_date}
+                            key={release.uid}
+                            link={release.ava_short_link}
+                            name={release.name}
+                        />
+                    ))
+                ) : (
+                    <div>no added releases</div>
+                )}
+            </Stack>
         </Container>
     );
 };
