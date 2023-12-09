@@ -1,4 +1,4 @@
-import { Button, Container, Stack } from '@mui/material';
+import { Box, Button, Container, Stack, Typography } from '@mui/material';
 import { type FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -15,20 +15,28 @@ export const MainPage: FC = () => {
 
     return (
         <Container maxWidth='lg'>
-            <h1>Your releases:</h1>
-            <Button
-                onClick={() => navigate('/add')}
-                sx={{
-                    width: '200px',
-                    height: '40px',
-                    background: 'lightgrey',
-                    color: 'white',
-                    '&:hover': { background: 'grey' },
-                }}
+            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <Typography variant='h1'>Your releases:</Typography>
+                <Button
+                    onClick={() => navigate('/add')}
+                    sx={{
+                        width: '200px',
+                        height: '40px',
+                        background: 'lightgrey',
+                        color: 'white',
+                        '&:hover': { background: 'grey' },
+                    }}
+                >
+                    add new release
+                </Button>
+            </Box>
+            <Stack
+                direction='row'
+                flexWrap='wrap'
+                spacing={{ xs: 2, sm: 8 }}
+                sx={{ marginTop: '30px' }}
+                useFlexGap
             >
-                add new release
-            </Button>
-            <Stack direction='row' flexWrap='wrap' spacing={{ xs: 2, sm: 8 }} useFlexGap>
                 {releases ? (
                     releases.map((release: IRelease) => (
                         <Release
