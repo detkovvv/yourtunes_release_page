@@ -1,5 +1,5 @@
 import { Box, Button, Container } from '@mui/material';
-import React, { type FC } from 'react';
+import React, { type FC, useMemo, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useAddReleaseMutation } from '../../servicees/ReleaseService';
@@ -14,8 +14,11 @@ const buttonStyle = {
 export const AddPage: FC = () => {
     const navigate = useNavigate();
     const [addRelease, { isLoading, isError }] = useAddReleaseMutation();
+    const inputValue = useRef<any>();
 
-    const file = new FormData();
+    const file = useMemo(() => {
+        return new FormData();
+    }, []);
 
     const handleChange = (event: any) => {
         file.append('input_ava', event.target.files[0]);
@@ -24,7 +27,7 @@ export const AddPage: FC = () => {
     const handleAddRelease = async (event: any) => {
         event.preventDefault();
         await addRelease(file).unwrap();
-        event.target.value = null;
+        inputValue.current.value = '';
     };
 
     return (
@@ -45,6 +48,7 @@ export const AddPage: FC = () => {
                         id='field_file'
                         name='file'
                         onChange={handleChange}
+                        ref={inputValue}
                         required={true}
                         type='file'
                     />
