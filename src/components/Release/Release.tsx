@@ -23,7 +23,8 @@ export const Release: FC<{ date: string; link: string; name: string; uid: string
     const handleOpen = () => setIsOpen(true);
     const handleClose = () => setIsOpen(false);
     const handleDeleteRelease = async () => {
-        await deleteRelease(uid);
+        await deleteRelease({ uid });
+        setIsOpen(false);
     };
     const modalStyle = {
         position: 'absolute',

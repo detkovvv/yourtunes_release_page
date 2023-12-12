@@ -9,18 +9,21 @@ export const AddPage: FC = () => {
     const [addRelease, { isLoading, isError }] = useAddReleaseMutation();
     const [selectedFile, setSelectedFile] = useState('');
 
+    const formData = new FormData();
+
     const handleChange = (event: any) => {
-        console.log(event.target.files[0]);
-        const formData = new FormData();
-        formData.getAll(event.target.files[0]);
-        console.log(formData);
+        formData.append('file', event.target.files[0]);
+        console.log(formData.getAll('file'));
+        // @ts-ignore
+        setSelectedFile(formData);
+        console.log(selectedFile);
     };
     const handleAddRelease = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-
+        formData.getAll('input_ava');
         // console.log(formData);
         // eslint-disable-next-line camelcase
-        await addRelease({ input_ava: selectedFile }).unwrap();
+        await addRelease({ input_ava: formData.get('file') }).unwrap();
     };
 
     return (
@@ -35,42 +38,29 @@ export const AddPage: FC = () => {
             }}
         >
             <Box>
-                <Button
-                    sx={{
-                        width: '200px',
-                        height: '40px',
-                        background: 'skyblue',
-                        mt: 3,
-                        color: 'white',
-                        '&:hover': { background: 'CornflowerBlue' },
-                    }}
-                    type='submit'
-                >
-                    Select a picture
-                </Button>
-
-                <input
-                    accept='.jpg, .png'
-                    id='field_file'
-                    name='file'
-                    onChange={handleChange}
-                    required={true}
-                    type='file'
-                    value={selectedFile}
-                />
-                <Button
-                    sx={{
-                        width: '200px',
-                        height: '40px',
-                        background: 'skyblue',
-                        mt: 3,
-                        color: 'white',
-                        '&:hover': { background: 'CornflowerBlue' },
-                    }}
-                    type='submit'
-                >
-                    Upload
-                </Button>
+                <form onSubmit={handleAddRelease}>
+                    <input
+                        accept='.jpg, .png'
+                        id='field_file'
+                        name='file'
+                        onChange={handleChange}
+                        required={true}
+                        type='file'
+                    />
+                    <Button
+                        sx={{
+                            width: '200px',
+                            height: '40px',
+                            background: 'skyblue',
+                            mt: 3,
+                            color: 'white',
+                            '&:hover': { background: 'CornflowerBlue' },
+                        }}
+                        type='submit'
+                    >
+                        Upload
+                    </Button>
+                </form>
             </Box>
             <Box
                 sx={{

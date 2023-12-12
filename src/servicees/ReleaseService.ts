@@ -15,13 +15,14 @@ export const releaseAPI = createApi({
             query: (data) => ({ url: '/get_ava', method: 'GET', body: data }),
         }),
         deleteRelease: builder.mutation({
-            query: (data) => ({ url: '/delete', method: 'POST', body: data }),
+            query: (body) => ({ url: '/delete', method: 'POST', data: body }),
+            invalidatesTags: ['Releases'],
         }),
         updateAva: builder.mutation({
             query: (data) => ({ url: '/update_ava', method: 'POST', body: data }),
         }),
         addRelease: builder.mutation({
-            query: (body) => ({ url: '/add', method: 'POST', body: body }),
+            query: (body) => ({ url: '/add', method: 'POST', data: body }),
             invalidatesTags: ['Releases'],
         }),
     }),
