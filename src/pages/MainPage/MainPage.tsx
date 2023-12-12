@@ -11,20 +11,30 @@ export const MainPage: FC = () => {
     const { data, isLoading, isFetching } = useGetReleasesQuery('');
 
     if (isLoading || isFetching) return <div>isLoading...</div>;
-    const releases = data.result;
+    const releases: IRelease[] = data.result;
 
     return (
         <Container maxWidth='lg'>
-            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <Typography variant='h1'>Your releases:</Typography>
+            <Box
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                }}
+            >
+                <Typography component='h1' variant='h2'>
+                    Your releases
+                </Typography>
                 <Button
                     onClick={() => navigate('/add')}
                     sx={{
                         width: '200px',
                         height: '40px',
-                        background: 'lightgrey',
+                        background: 'skyblue',
+                        mt: 3,
                         color: 'white',
-                        '&:hover': { background: 'grey' },
+                        '&:hover': { background: 'CornflowerBlue' },
                     }}
                 >
                     add new release
@@ -34,7 +44,7 @@ export const MainPage: FC = () => {
                 direction='row'
                 flexWrap='wrap'
                 spacing={{ xs: 2, sm: 8 }}
-                sx={{ marginTop: '30px' }}
+                sx={{ mt: '30px', justifyContent: 'center' }}
                 useFlexGap
             >
                 {releases ? (
@@ -42,12 +52,15 @@ export const MainPage: FC = () => {
                         <Release
                             date={release.public_date}
                             key={release.uid}
-                            link={release.ava_short_link}
+                            link={release.ava_link}
                             name={release.name}
+                            uid={release.uid}
                         />
                     ))
                 ) : (
-                    <div>no added releases</div>
+                    <Typography content='h2' variant='body1'>
+                        no added releases
+                    </Typography>
                 )}
             </Stack>
         </Container>

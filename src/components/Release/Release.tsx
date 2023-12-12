@@ -10,11 +10,22 @@ import {
 } from '@mui/material';
 import React, { type FC, useState } from 'react';
 
-export const Release: FC<{ date: string; link: string; name: string }> = ({ date, link, name }) => {
+import { useDeleteReleaseMutation } from '../../servicees/ReleaseService';
+
+export const Release: FC<{ date: string; link: string; name: string; uid: string }> = ({
+    date,
+    link,
+    name,
+    uid,
+}) => {
+    const [deleteRelease] = useDeleteReleaseMutation();
     const [isOpen, setIsOpen] = useState(false);
     const handleOpen = () => setIsOpen(true);
     const handleClose = () => setIsOpen(false);
-    const style = {
+    const handleDeleteRelease = async () => {
+        await deleteRelease(uid);
+    };
+    const modalStyle = {
         position: 'absolute',
         top: '50%',
         left: '50%',
@@ -24,11 +35,14 @@ export const Release: FC<{ date: string; link: string; name: string }> = ({ date
         border: '2px solid #000',
         boxShadow: 24,
         p: 4,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
     };
 
     return (
-        <Card sx={{ maxWidth: 300 }}>
-            <CardMedia image={link} sx={{ height: 300 }} title={name} />
+        <Card sx={{ maxWidth: 300, height: '100%' }}>
+            <CardMedia image={link} sx={{ height: 200 }} title={name} />
             <CardContent>
                 <Typography component='div' gutterBottom variant='h5'>
                     {name}
@@ -38,8 +52,10 @@ export const Release: FC<{ date: string; link: string; name: string }> = ({ date
                 </Typography>
             </CardContent>
             <CardActions>
-                <Button size='small'>Edit release</Button>
-                <Button onClick={handleOpen} size='small'>
+                <Button size='small' variant='text'>
+                    Edit release
+                </Button>
+                <Button onClick={handleOpen} size='small' variant='text'>
                     Delete release
                 </Button>
             </CardActions>
@@ -49,9 +65,9 @@ export const Release: FC<{ date: string; link: string; name: string }> = ({ date
                 onClose={handleClose}
                 open={isOpen}
             >
-                <Box sx={style}>
+                <Box sx={modalStyle}>
                     <Typography>are you sure?</Typography>
-                    <Button onClick={() => {}}>Yes</Button>
+                    <Button onClick={handleDeleteRelease}>Yes</Button>
                     <Button
                         onClick={() => {
                             setIsOpen(false);
