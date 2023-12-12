@@ -1,29 +1,32 @@
 import { Box, Button, Container } from '@mui/material';
-import React, { type FC, useState } from 'react';
+import React, { type FC, type SetStateAction, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useAddReleaseMutation } from '../../servicees/ReleaseService';
-
+const buttonStyle = {
+    width: '200px',
+    height: '40px',
+    background: 'skyblue',
+    mt: 3,
+    color: 'white',
+    '&:hover': { background: 'CornflowerBlue' },
+};
 export const AddPage: FC = () => {
     const navigate = useNavigate();
     const [addRelease, { isLoading, isError }] = useAddReleaseMutation();
-    const [selectedFile, setSelectedFile] = useState('');
 
-    const formData = new FormData();
+    const file = new FormData();
 
     const handleChange = (event: any) => {
-        formData.append('file', event.target.files[0]);
-        console.log(formData.getAll('file'));
-        // @ts-ignore
-        setSelectedFile(formData);
-        console.log(selectedFile);
+        file.append('input_ava', event.target.files[0]);
+        console.log(file);
     };
     const handleAddRelease = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        formData.getAll('input_ava');
-        // console.log(formData);
         // eslint-disable-next-line camelcase
-        await addRelease({ input_ava: formData.get('file') }).unwrap();
+        // eslint-disable-next-line camelcase
+        await addRelease(file).unwrap();
+        event.target.value = null;
     };
 
     return (
@@ -47,17 +50,7 @@ export const AddPage: FC = () => {
                         required={true}
                         type='file'
                     />
-                    <Button
-                        sx={{
-                            width: '200px',
-                            height: '40px',
-                            background: 'skyblue',
-                            mt: 3,
-                            color: 'white',
-                            '&:hover': { background: 'CornflowerBlue' },
-                        }}
-                        type='submit'
-                    >
+                    <Button sx={buttonStyle} type='submit'>
                         Upload
                     </Button>
                 </form>
@@ -71,17 +64,7 @@ export const AddPage: FC = () => {
                     mt: 10,
                 }}
             >
-                <Button
-                    onClick={() => navigate('/')}
-                    sx={{
-                        width: '200px',
-                        height: '40px',
-                        background: 'skyblue',
-                        mt: 3,
-                        color: 'white',
-                        '&:hover': { background: 'CornflowerBlue' },
-                    }}
-                >
+                <Button onClick={() => navigate('/')} sx={buttonStyle}>
                     Back to list
                 </Button>
             </Box>
