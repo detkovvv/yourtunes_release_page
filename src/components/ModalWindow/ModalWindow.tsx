@@ -17,8 +17,8 @@ const modalStyle = {
 export const ModalWindow: FC<{
     isOpen: boolean;
     setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-    handleClose: void;
-    handleDeleteRelease: Promise<void>;
+    handleClose: () => void;
+    handleDeleteRelease: () => Promise<void>;
 }> = ({ isOpen, setIsOpen, handleClose, handleDeleteRelease }) => {
     return (
         <Modal
