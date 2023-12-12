@@ -5,9 +5,11 @@ import { axiosBaseQuery } from './axiosBaseQuery';
 export const releaseAPI = createApi({
     reducerPath: 'releaseAPI',
     baseQuery: axiosBaseQuery(),
+    tagTypes: ['Releases'],
     endpoints: (builder) => ({
         getReleases: builder.query({
             query: () => ({ url: '/list', method: 'GET' }),
+            providesTags: () => ['Releases'],
         }),
         getAva: builder.query({
             query: (data) => ({ url: '/get_ava', method: 'GET', body: data }),
@@ -19,7 +21,8 @@ export const releaseAPI = createApi({
             query: (data) => ({ url: '/update_ava', method: 'POST', body: data }),
         }),
         addRelease: builder.mutation({
-            query: (avatar) => ({ url: '/add', method: 'POST', body: { input_ava: avatar } }),
+            query: (body) => ({ url: '/add', method: 'POST', body: body }),
+            invalidatesTags: ['Releases'],
         }),
     }),
 });

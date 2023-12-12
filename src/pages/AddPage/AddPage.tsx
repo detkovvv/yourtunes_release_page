@@ -1,4 +1,4 @@
-import { Box, Button, Container, Typography } from '@mui/material';
+import { Box, Button, Container } from '@mui/material';
 import React, { type FC, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -6,19 +6,21 @@ import { useAddReleaseMutation } from '../../servicees/ReleaseService';
 
 export const AddPage: FC = () => {
     const navigate = useNavigate();
-    const [addRelease] = useAddReleaseMutation();
+    const [addRelease, { isLoading, isError }] = useAddReleaseMutation();
     const [selectedFile, setSelectedFile] = useState('');
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        // @ts-ignore
+    const handleChange = (event: any) => {
         console.log(event.target.files[0]);
-        // @ts-ignore
-        setSelectedFile(event.target.files[0]);
-    };
-    const sendFile = async () => {
         const formData = new FormData();
-        formData.append('input_ava', selectedFile);
-        await addRelease({ body: formData });
+        formData.getAll(event.target.files[0]);
+        console.log(formData);
+    };
+    const handleAddRelease = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+
+        // console.log(formData);
+        // eslint-disable-next-line camelcase
+        await addRelease({ input_ava: selectedFile }).unwrap();
     };
 
     return (
@@ -33,30 +35,42 @@ export const AddPage: FC = () => {
             }}
         >
             <Box>
-                <form onSubmit={sendFile}>
+                <Button
+                    sx={{
+                        width: '200px',
+                        height: '40px',
+                        background: 'skyblue',
+                        mt: 3,
+                        color: 'white',
+                        '&:hover': { background: 'CornflowerBlue' },
+                    }}
+                    type='submit'
+                >
                     Select a picture
-                    <input
-                        accept='.jpg, .png'
-                        id='field_file'
-                        name='file'
-                        onChange={handleChange}
-                        required={true}
-                        type='file'
-                    />
-                    <Button
-                        sx={{
-                            width: '200px',
-                            height: '40px',
-                            background: 'skyblue',
-                            mt: 3,
-                            color: 'white',
-                            '&:hover': { background: 'CornflowerBlue' },
-                        }}
-                        type='submit'
-                    >
-                        Upload
-                    </Button>
-                </form>
+                </Button>
+
+                <input
+                    accept='.jpg, .png'
+                    id='field_file'
+                    name='file'
+                    onChange={handleChange}
+                    required={true}
+                    type='file'
+                    value={selectedFile}
+                />
+                <Button
+                    sx={{
+                        width: '200px',
+                        height: '40px',
+                        background: 'skyblue',
+                        mt: 3,
+                        color: 'white',
+                        '&:hover': { background: 'CornflowerBlue' },
+                    }}
+                    type='submit'
+                >
+                    Upload
+                </Button>
             </Box>
             <Box
                 sx={{
