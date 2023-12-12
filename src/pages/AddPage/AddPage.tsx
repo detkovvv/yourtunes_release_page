@@ -1,5 +1,5 @@
 import { Box, Button, Container } from '@mui/material';
-import React, { type FC, type SetStateAction, useState } from 'react';
+import React, { type FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useAddReleaseMutation } from '../../servicees/ReleaseService';
@@ -21,10 +21,8 @@ export const AddPage: FC = () => {
         file.append('input_ava', event.target.files[0]);
         console.log(file);
     };
-    const handleAddRelease = async (event: React.FormEvent<HTMLFormElement>) => {
+    const handleAddRelease = async (event: any) => {
         event.preventDefault();
-        // eslint-disable-next-line camelcase
-        // eslint-disable-next-line camelcase
         await addRelease(file).unwrap();
         event.target.value = null;
     };

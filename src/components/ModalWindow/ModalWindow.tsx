@@ -29,7 +29,7 @@ export const ModalWindow: FC<{
         >
             <Box sx={modalStyle}>
                 <Typography>are you sure?</Typography>
-                <Button onClick={() => handleDeleteRelease}>Yes</Button>
+                <Button onClick={handleDeleteRelease}>Yes</Button>
                 <Button
                     onClick={() => {
                         setIsOpen(false);
