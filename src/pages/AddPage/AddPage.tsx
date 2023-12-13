@@ -5,10 +5,13 @@ import React, {
     type FormEventHandler,
     useMemo,
     useRef,
+    useState,
 } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { Alerts } from '../../components/Alerts/Alerts';
 import { useAddReleaseMutation } from '../../servicees/ReleaseService';
+
 const buttonStyle = {
     width: '200px',
     height: '40px',
@@ -19,8 +22,10 @@ const buttonStyle = {
 };
 export const AddPage: FC = () => {
     const navigate = useNavigate();
-    const [addRelease, { isLoading, isError }] = useAddReleaseMutation();
+    const [addRelease, { isLoading, isError, isSuccess, error }] = useAddReleaseMutation();
     const inputValue = useRef<HTMLInputElement>(null);
+    const [successIsOpen, setSuccessIsOpen] = useState(false);
+    const [errorIsOpen, setErrorIsOpen] = useState(false);
 
     const file = useMemo(() => {
         return new FormData();
@@ -63,6 +68,12 @@ export const AddPage: FC = () => {
                         Upload
                     </Button>
                 </form>
+                <Alerts
+                    errorIsOpen={errorIsOpen}
+                    setErrorIsOpen={setErrorIsOpen}
+                    setSuccessIsOpen={setSuccessIsOpen}
+                    successIsOpen={successIsOpen}
+                />
             </Box>
             <Box
                 sx={{
