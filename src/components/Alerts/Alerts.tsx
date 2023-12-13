@@ -8,6 +8,7 @@ export const Alerts: FC<{ isError: boolean; isSuccess: boolean; error: any }> = 
 }) => {
     const [successIsOpen, setSuccessIsOpen] = useState(false);
     const [errorIsOpen, setErrorIsOpen] = useState(false);
+
     useEffect((): void => {
         if (isError) setErrorIsOpen(true);
         if (isSuccess) setSuccessIsOpen(true);
@@ -16,7 +17,8 @@ export const Alerts: FC<{ isError: boolean; isSuccess: boolean; error: any }> = 
     return (
         <Box>
             <Snackbar
-                autoHideDuration={4000}
+                anchorOrigin={{ horizontal: 'center', vertical: 'top' }}
+                autoHideDuration={6000}
                 onClose={() => setSuccessIsOpen(false)}
                 open={successIsOpen}
             >
@@ -29,7 +31,8 @@ export const Alerts: FC<{ isError: boolean; isSuccess: boolean; error: any }> = 
                 </Alert>
             </Snackbar>
             <Snackbar
-                autoHideDuration={4000}
+                anchorOrigin={{ horizontal: 'center', vertical: 'top' }}
+                autoHideDuration={6000}
                 onClose={() => setErrorIsOpen(false)}
                 open={errorIsOpen}
             >
@@ -38,7 +41,7 @@ export const Alerts: FC<{ isError: boolean; isSuccess: boolean; error: any }> = 
                     severity='error'
                     sx={{ width: '100%' }}
                 >
-                    This is an error message!
+                    {error?.data.message}
                 </Alert>
             </Snackbar>
         </Box>
