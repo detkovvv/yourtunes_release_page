@@ -1,12 +1,18 @@
 import { Box, Snackbar, Alert } from '@mui/material';
-import React, { type FC } from 'react';
+import React, { type FC, useEffect, useState } from 'react';
 
-export const Alerts: FC<{
-    errorIsOpen: boolean;
-    successIsOpen: boolean;
-    setSuccessIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-    setErrorIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}> = ({ successIsOpen, setSuccessIsOpen, errorIsOpen, setErrorIsOpen }) => {
+export const Alerts: FC<{ isError: boolean; isSuccess: boolean; error: any }> = ({
+    isError,
+    isSuccess,
+    error,
+}) => {
+    const [successIsOpen, setSuccessIsOpen] = useState(false);
+    const [errorIsOpen, setErrorIsOpen] = useState(false);
+    useEffect((): void => {
+        if (isError) setErrorIsOpen(true);
+        if (isSuccess) setSuccessIsOpen(true);
+    }, [isError, isSuccess]);
+
     return (
         <Box>
             <Snackbar

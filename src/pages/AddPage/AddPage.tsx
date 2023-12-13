@@ -5,7 +5,6 @@ import React, {
     type FormEventHandler,
     useMemo,
     useRef,
-    useState,
 } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -24,16 +23,13 @@ export const AddPage: FC = () => {
     const navigate = useNavigate();
     const [addRelease, { isLoading, isError, isSuccess, error }] = useAddReleaseMutation();
     const inputValue = useRef<HTMLInputElement>(null);
-    const [successIsOpen, setSuccessIsOpen] = useState(false);
-    const [errorIsOpen, setErrorIsOpen] = useState(false);
 
     const file = useMemo(() => {
         return new FormData();
     }, []);
 
-    const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
-        // @ts-ignore
-        file.append('input_ava', (event.target as HTMLInputElement).files[0]);
+    const handleChange: ChangeEventHandler<HTMLInputElement> = (event): void => {
+        file.append('input_ava', (event.target.files || [])[0]);
         console.log(file);
     };
     const handleAddRelease: FormEventHandler<HTMLFormElement> = async (event) => {
@@ -68,12 +64,7 @@ export const AddPage: FC = () => {
                         Upload
                     </Button>
                 </form>
-                <Alerts
-                    errorIsOpen={errorIsOpen}
-                    setErrorIsOpen={setErrorIsOpen}
-                    setSuccessIsOpen={setSuccessIsOpen}
-                    successIsOpen={successIsOpen}
-                />
+                <Alerts error={error} isError={isError} isSuccess={isSuccess} />
             </Box>
             <Box
                 sx={{
