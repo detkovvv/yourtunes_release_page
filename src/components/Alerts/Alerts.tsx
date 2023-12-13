@@ -1,11 +1,12 @@
-import { Box, Snackbar, Alert } from '@mui/material';
+import { Box, Snackbar, Alert, CircularProgress } from '@mui/material';
 import React, { type FC, useEffect, useState } from 'react';
 
-export const Alerts: FC<{ isError: boolean; isSuccess: boolean; error: any }> = ({
-    isError,
-    isSuccess,
-    error,
-}) => {
+export const Alerts: FC<{
+    isError: boolean;
+    isSuccess: boolean;
+    error: any;
+    isLoading: boolean;
+}> = ({ isError, isSuccess, error, isLoading }) => {
     const [successIsOpen, setSuccessIsOpen] = useState(false);
     const [errorIsOpen, setErrorIsOpen] = useState(false);
 
@@ -44,6 +45,7 @@ export const Alerts: FC<{ isError: boolean; isSuccess: boolean; error: any }> = 
                     {error?.data.message}
                 </Alert>
             </Snackbar>
+            {isLoading && <CircularProgress />}
         </Box>
     );
 };

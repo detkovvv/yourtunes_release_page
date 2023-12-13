@@ -64,8 +64,8 @@ export const AddPage: FC = () => {
                         Upload
                     </Button>
                 </form>
-                <Alerts error={error} isError={isError} isSuccess={isSuccess} />
             </Box>
+            <Alerts error={error} isError={isError} isLoading={isLoading} isSuccess={isSuccess} />
             <Box
                 sx={{
                     display: 'flex',

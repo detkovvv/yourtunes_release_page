@@ -1,5 +1,5 @@
-import { Box, Button, Container, Stack, Typography } from '@mui/material';
-import { type FC } from 'react';
+import { Box, Button, CircularProgress, Container, Stack, Typography } from '@mui/material';
+import React, { type FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { Release } from '../../components/Release/Release';
@@ -10,7 +10,21 @@ export const MainPage: FC = () => {
     const navigate = useNavigate();
     const { data, isLoading, isFetching } = useGetReleasesQuery('');
 
-    if (isLoading || isFetching) return <div>isLoading...</div>;
+    if (isLoading || isFetching) {
+        return (
+            <Box
+                sx={{
+                    height: '100vh',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                }}
+            >
+                <CircularProgress />
+            </Box>
+        );
+    }
     const releases: IRelease[] = data.result;
 
     return (
