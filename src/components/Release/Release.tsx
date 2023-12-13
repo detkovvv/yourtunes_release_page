@@ -1,7 +1,7 @@
 import { Button, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
 import React, { type FC, useState } from 'react';
 
-import { useDeleteReleaseMutation } from '../../servicees/ReleaseService';
+import { useDeleteReleaseMutation, useUpdateAvaMutation } from '../../servicees/ReleaseService';
 import { ModalWindow } from '../ModalWindow/ModalWindow';
 
 export const Release: FC<{ date: string; link: string; name: string; uid: string }> = ({
@@ -11,16 +11,23 @@ export const Release: FC<{ date: string; link: string; name: string; uid: string
     uid,
 }) => {
     const [deleteRelease, { isLoading }] = useDeleteReleaseMutation();
+    const [updateRelease, { isError, isSucces }] = useUpdateAvaMutation();
+
     const [isOpen, setIsOpen] = useState(false);
     const handleOpen = () => setIsOpen(true);
     const handleClose = () => setIsOpen(false);
+
     const handleDeleteRelease = async () => {
         await deleteRelease({ uid });
         if (!isLoading) setIsOpen(false);
     };
+    const handleUpdateRelease = async () => {
+        await updateRelease({ uid });
+        if (!isLoading) setIsOpen(false);
+    };
 
     return (
-        <Card sx={{ maxWidth: 300, height: '100%' }}>
+        <Card sx={{ maxWidth: 300, height: '100%', boxShadow: 2, '&:hover': { boxShadow: 10 } }}>
             <CardMedia image={link} sx={{ height: 200 }} title={name} />
             <CardContent>
                 <Typography component='div' gutterBottom variant='h5'>

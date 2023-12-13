@@ -28,7 +28,7 @@ export const Alerts: FC<{
                     severity='success'
                     sx={{ width: '100%' }}
                 >
-                    This is a success message!
+                    successfully loaded!
                 </Alert>
             </Snackbar>
             <Snackbar

@@ -19,6 +19,7 @@ const buttonStyle = {
     color: 'white',
     '&:hover': { background: 'CornflowerBlue' },
 };
+
 export const AddPage: FC = () => {
     const navigate = useNavigate();
     const [addRelease, { isLoading, isError, isSuccess, error }] = useAddReleaseMutation();
@@ -52,7 +53,7 @@ export const AddPage: FC = () => {
             <Box>
                 <form onSubmit={handleAddRelease}>
                     <input
-                        accept='.jpg, .png'
+                        accept='.png, .jpg'
                         id='field_file'
                         name='file'
                         onChange={handleChange}

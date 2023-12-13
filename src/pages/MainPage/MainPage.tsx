@@ -58,7 +58,7 @@ export const MainPage: FC = () => {
                 direction='row'
                 flexWrap='wrap'
                 spacing={{ xs: 2, sm: 8 }}
-                sx={{ mt: '30px', justifyContent: 'center' }}
+                sx={{ mt: '30px' }}
                 useFlexGap
             >
                 {releases ? (
